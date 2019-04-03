@@ -62,6 +62,20 @@ IndexScan(tbl1 tbl1_pkey)
 EXPLAIN SELECT * FROM tbl1, tbl2 WHERE tbl1.id = tbl2.id AND tbl1.id < 1000
 ```
 
+In addition, phint can accept query plans in forms of json directly from stdin using `--input-plan` option:
+
+```bash
+$ psql -Atqc "EXPLAIN (FORMAT JSON) SELECT * FROM tbl1, tbl2 WHERE tbl1.id = tbl2.id AND tbl1.id < 1000" | phint --input-plan
+/*+
+Leading((tbl2 tbl1))
+HashJoin(tbl2 tbl1)
+SeqScan(tbl2)
+IndexScan(tbl1 tbl1_pkey)
+*/
+```
+
+Note that you need to execute `EXPLAIN` command with `FORMAT JSON` option to get json formatted query plan, and need to use `-Atq` psql options to get only query plan string.
+
 ## Features NOT supported
 The following plan nodes and features are not tested
 

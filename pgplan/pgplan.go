@@ -60,7 +60,7 @@ func (n *Node) getHintKeyword() string {
 		hint = "NestLoop"
 	case "Hash Join":
 		hint = "HashJoin"
-	case "Merg Join":
+	case "Merge Join":
 		hint = "MergeJoin"
 	case "Seq Scan":
 		hint = "SeqScan"
@@ -195,7 +195,7 @@ func getHintFromNode(n Node, h *Hint) {
 
 		// Join
 		addJoinRel(h, n.RelationName)
-	case "Materialize", "Sort", "Hash", "Bitmap Index Scan", "BitmapOr", "BitmapAnd", "Result":
+	case "Materialize", "Sort", "Hash", "Bitmap Index Scan", "BitmapOr", "BitmapAnd", "Result", "Aggregate", "Hash Aggregate":
 		getHintFromNode(n.Childs[0], h)
 	default:
 		glog.Info("might be better to add the new Node for parsing: " + n.NodeType)
