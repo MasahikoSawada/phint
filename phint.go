@@ -173,7 +173,7 @@ func main() {
 		},
 		cli.BoolFlag{
 			Name:  "input-plan,",
-			Usage: "Get the actual PostgreSQL query plan in forms of json",
+			Usage: "Input the actual PostgreSQL query plan in forms of json",
 		},
 		cli.BoolFlag{
 			Name:  "hint-only",
